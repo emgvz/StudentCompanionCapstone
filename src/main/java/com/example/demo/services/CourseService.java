@@ -1,0 +1,11 @@
+package com.example.demo.services;
+
+import java.util.List;
+
+import com.example.demo.domain.Course;
+
+public interface CourseService {
+    List<Course> findAll();
+    Course save(Course course);
+    void delete(Long id);
+}
