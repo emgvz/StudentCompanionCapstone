@@ -6,6 +6,7 @@ import com.example.demo.domain.Course;
 
 public interface CourseService {
     List<Course> findAll();
+    List<Course> findByStudent(Long studentId);
     Course save(Course course);
     void delete(Long id);
 }

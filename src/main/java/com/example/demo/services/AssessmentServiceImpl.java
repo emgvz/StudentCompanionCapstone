@@ -17,6 +17,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     public List<Assessment> findAll() {
         return repo.findAll();
     }
+    
+    public List<Assessment> findByStudent(Long studentId) {   
+        return repo.findByStudentId(studentId);
+    }
 
     public List<Assessment> findByCourse(Long courseId) {
         return repo.findByCourseId(courseId);

@@ -6,6 +6,7 @@ import com.example.demo.domain.Assessment;
 
 public interface AssessmentService {
     List<Assessment> findAll();
+    List<Assessment> findByStudent(Long studentId); 
     List<Assessment> findByCourse(Long courseId);
     Assessment save(Assessment assessment);
 }

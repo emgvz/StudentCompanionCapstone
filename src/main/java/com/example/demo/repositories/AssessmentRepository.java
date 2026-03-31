@@ -13,4 +13,7 @@ public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
     List<Assessment> findByCourseId(Long courseId);
     List<Assessment> findByDueDateAfter(LocalDate date);
     List<Assessment> findByDueDateBefore(LocalDate date);
+    List<Assessment> findByStudentId(Long studentId);
+
+    List<Assessment> findByStudentIdOrderByDueDateAsc(Long studentId);
 }

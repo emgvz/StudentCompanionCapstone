@@ -32,7 +32,7 @@ public class AuthenticationService {
 	            .build();
 	    userRepository.save(user);
 	    var jwtToken = jwtService.generateToken(user);
-	    return AuthenticationResponse.builder().token(jwtToken).build();
+	    return AuthenticationResponse.builder().token(jwtToken).userId(user.getId()).build();
 	}
 	// a method to authenticate an existing user and generate a JWT for them
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -40,7 +40,7 @@ public class AuthenticationService {
 	            request.getEmail(), request.getPassword()));
 	    User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 	    var jwtToken = jwtService.generateToken(user);
-	    return AuthenticationResponse.builder().token(jwtToken).build();
+	    return AuthenticationResponse.builder().token(jwtToken).userId(user.getId()).build();
 	}
 
 }

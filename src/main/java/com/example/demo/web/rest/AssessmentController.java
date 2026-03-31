@@ -14,26 +14,36 @@ import com.example.demo.domain.Assessment;
 import com.example.demo.services.AssessmentService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/assessments")
+@RequestMapping("/api/v1/assessments")
+@RequiredArgsConstructor
 public class AssessmentController {
 
-    @Autowired
-    private AssessmentService service;
+    private final AssessmentService assessmentService;
 
+    // GET ALL
     @GetMapping
     public List<Assessment> getAll() {
-        return service.findAll();
+        return assessmentService.findAll();
     }
 
-    @GetMapping("/{courseId}")
+    // GET BY COURSE
+    @GetMapping("/course/{courseId}")
     public List<Assessment> getByCourse(@PathVariable Long courseId) {
-        return service.findByCourse(courseId);
+        return assessmentService.findByCourse(courseId);
     }
 
+    // ✅ GET BY STUDENT (NEW)
+    @GetMapping("/student/{studentId}")
+    public List<Assessment> getByStudent(@PathVariable Long studentId) {
+        return assessmentService.findByStudent(studentId);
+    }
+
+    // CREATE
     @PostMapping
-    public Assessment create(@RequestBody Assessment a) {
-        return service.save(a);
+    public Assessment create(@RequestBody Assessment assessment) {
+        return assessmentService.save(assessment);
     }
 }

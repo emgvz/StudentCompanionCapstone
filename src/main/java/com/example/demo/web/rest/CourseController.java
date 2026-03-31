@@ -12,29 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Course;
+import com.example.demo.repositories.CourseRepository;
 import com.example.demo.services.CourseService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/v1/courses")
+@RequiredArgsConstructor
 public class CourseController {
 
-    @Autowired
-    private CourseService service;
+    private final CourseService courseService;
 
+    // GET ALL
     @GetMapping
     public List<Course> getAll() {
-        return service.findAll();
+        return courseService.findAll();
     }
 
+    // ✅ GET BY STUDENT (NEW)
+    @GetMapping("/student/{studentId}")
+    public List<Course> getByStudent(@PathVariable Long studentId) {
+        return courseService.findByStudent(studentId);
+    }
+
+    // CREATE
     @PostMapping
-    public Course create(@RequestBody Course c) {
-        return service.save(c);
+    public Course create(@RequestBody Course course) {
+        return courseService.save(course);
     }
 
+    // DELETE
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        service.delete(id);
+        courseService.delete(id);
     }
 }
