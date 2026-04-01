@@ -33,8 +33,9 @@ public class AuthenticationService {
 	    userRepository.save(user);
 	    var jwtToken = jwtService.generateToken(user);
 	    return AuthenticationResponse.builder().token(jwtToken).build();
+	    
 	}
-	// a method to authenticate an existing user and generate a JWT for them
+//	// a method to authenticate an existing user and generate a JWT for them
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
 	    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 	            request.getEmail(), request.getPassword()));
@@ -42,5 +43,10 @@ public class AuthenticationService {
 	    var jwtToken = jwtService.generateToken(user);
 	    return AuthenticationResponse.builder().token(jwtToken).build();
 	}
+	
+	
+	
+	
+
 
 }

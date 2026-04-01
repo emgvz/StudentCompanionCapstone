@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.JwtService;
 
 @Configuration
 @AllArgsConstructor
@@ -45,5 +46,12 @@ public class ApplicationConfig {
 	PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
+	
+	@Bean
+	public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService,
+	                                                       UserDetailsService userDetailsService) {
+	    return new JwtAuthenticationFilter(jwtService, userDetailsService);
+	}
+
 
 }

@@ -27,14 +27,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
+            "outputMode": "static",
             "security": {
               "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "src/server.ts"
             }
+            
           },
           "configurations": {
             "production": {
@@ -62,6 +59,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.config.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "webapp:build:production"
@@ -72,6 +72,8 @@
           },
           "defaultConfiguration": "development"
         },
+        
+        
         "test": {
           "builder": "@angular/build:unit-test"
         }
