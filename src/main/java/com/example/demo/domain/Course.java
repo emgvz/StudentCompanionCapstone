@@ -19,4 +19,8 @@ public class Course {
 
     @NonNull
     private String term;
+    
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }

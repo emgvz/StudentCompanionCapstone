@@ -25,4 +25,8 @@ public class Assessment {
     @ManyToOne
     @NonNull
     private Course course;
+    
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }

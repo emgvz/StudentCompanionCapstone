@@ -17,6 +17,10 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> findAll() {
         return repo.findAll();
     }
+    
+    public List<Course> findByStudentId(Long studentId) {  
+        return repo.findByStudentId(studentId);
+    }
 
     public Course save(Course course) {
         return repo.save(course);

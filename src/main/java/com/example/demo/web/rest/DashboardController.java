@@ -5,32 +5,47 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Assessment;
+import com.example.demo.domain.Course;
+import com.example.demo.models.DashboardDTO;
 import com.example.demo.repositories.AssessmentRepository;
+import com.example.demo.repositories.CourseRepository;
+import com.example.demo.services.AssessmentService;
+import com.example.demo.services.CourseService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/dashboard")
+@RequestMapping("/api/v1/dashboard")
+@RequiredArgsConstructor
 public class DashboardController {
 
-    @Autowired
-    private AssessmentRepository repo;
+    private final CourseService courseService;
+    private final AssessmentService assessmentService;
 
-    /**
-     * Get upcoming tasks (future deadlines)
-     */
-    @GetMapping("/upcoming")
-    public List<Assessment> getUpcoming() {
-        return repo.findByDueDateAfter(LocalDate.now());
-    }
+    @GetMapping("/{studentId}")
+    public DashboardDTO getDashboard(@PathVariable Long studentId) {
 
-    /**
-     * Get overdue tasks (past deadlines)
-     */
-    @GetMapping("/overdue")
-    public List<Assessment> getOverdue() {
-        return repo.findByDueDateBefore(LocalDate.now());
+        List<Course> courses = courseService.findByStudentId(studentId);
+
+        List<Assessment> all = assessmentService.findByStudentId(studentId);
+
+        List<Assessment> upcoming = all.stream()
+                .filter(a -> a.getDueDate().isAfter(LocalDate.now()))
+                .toList();
+
+        List<Assessment> overdue = all.stream()
+                .filter(a -> a.getDueDate().isBefore(LocalDate.now()))
+                .toList();
+
+        return DashboardDTO.builder()
+                .courses(courses)
+                .upcoming(upcoming)
+                .overdue(overdue)
+                .build();
     }
 }
