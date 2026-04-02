@@ -1,54 +1,40 @@
-import { Component } from '@angular/core';
-import { Router, RouterModule, NavigationEnd } from '@angular/router';
-import { UserService } from '../user-service';
-import { StudentService } from '../student-service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth-service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
-  imports: [RouterModule],
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
+  styleUrl: './dashboard.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
 
-  email = '';
   studentName: string | null = null;
+  email: string | null = null;
 
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private studentService: StudentService
+  constructor(private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.email = localStorage.getItem('userEmail') || '';
+    // load student object if it exists
+    const student = this.authService.getStudent();
 
-    // Load student once when dashboard loads
-    this.loadStudent();
-
-    // Update immediately when a student is created
-    this.studentService.onStudentAdded.subscribe(student => {
+    if (student) {
       this.studentName = student.name;
-    });
+    }
+
+    // always load email from token
+    const token = this.authService.getToken();
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.email = payload.sub; // email stored in JWT
+    }
   }
 
-  loadStudent() {
-    this.studentService.getMyStudent().subscribe({
-      next: (student) => {
-        this.studentName = student ? student.name : null;
-      },
-      error: () => {
-        this.studentName = null;
-      }
-    });
-  }
-
-  logout(): void {
-    this.userService.logout();
+  logout() {
+    this.authService.logout();
     this.router.navigate(['/login']);
-
-
   }
 }
-

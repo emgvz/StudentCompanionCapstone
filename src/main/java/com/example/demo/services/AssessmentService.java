@@ -9,4 +9,7 @@ public interface AssessmentService {
     List<Assessment> findByStudentId(Long studentId); 
     List<Assessment> findByCourse(Long courseId);
     Assessment save(Assessment assessment);
+    void delete(Long id);
+
+    
 }

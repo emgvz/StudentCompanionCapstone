@@ -46,10 +46,6 @@ public class StudentController {
         String email = auth.getName();
         User user = userRepository.findByEmail(email).orElseThrow();
 
-        
-        
-        
-        
         // Prevent multiple students per user
         if (studentService.findByUser(user).isPresent()) {
             return ResponseEntity.badRequest().body("Student already exists for this user");

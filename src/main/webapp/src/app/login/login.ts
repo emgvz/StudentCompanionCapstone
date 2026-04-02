@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
-import { UserService } from '../user-service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterModule],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
 
-  loginForm: FormGroup;
   loading = false;
   errorMessage: string | null = null;
 
+  loginForm: FormGroup;
+
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -26,34 +28,32 @@ export class Login {
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
+  login() {
+    if (this.loginForm.invalid) return;
 
     this.loading = true;
     this.errorMessage = null;
 
     const credentials = this.loginForm.value;
 
-    this.userService.authenticate(credentials).subscribe({
-      next: (response) => {
-        this.loading = false;
+    this.authService.login(credentials).subscribe({
+      next: (res: any) => {
+        this.authService.saveAuth(res.token, res.userId);
 
-        // Save token + email
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userEmail', credentials.email);
+        this.authService.getMyStudent().subscribe(student => {
+          if (student) {
+            this.authService.saveStudent(student);
+            this.authService.saveStudentId(student.id);
+          }
 
-        // Redirect to dashboard
-        this.router.navigate(['/dashboard']);
+          this.loading = false;
+          this.router.navigate(['/dashboard']);
+        });
       },
       error: (err) => {
+        console.error('Login failed', err);
+        this.errorMessage = 'Invalid email or password.';
         this.loading = false;
-
-        // Show backend message instantly
-        this.errorMessage = err.error?.error || 'Invalid email or password';
-
-        console.log("Login failed", err);
       }
     });
   }

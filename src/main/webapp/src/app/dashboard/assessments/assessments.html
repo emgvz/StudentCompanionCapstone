@@ -1,0 +1,47 @@
+<div class="header-row">
+  <h2>My Assessments</h2>
+  <a routerLink="/dashboard" class="back-link">← Back</a>
+</div>
+
+<!-- Add Assessment Form -->
+<div class="assessment-form">
+
+  <input
+    type="text"
+    placeholder="Assessment Title"
+    [(ngModel)]="newAssessment.title"
+  />
+
+  <input
+    type="date"
+    [(ngModel)]="newAssessment.dueDate"
+  />
+
+  <select [(ngModel)]="newAssessment.course.id">
+    <option value="0" disabled>Select Course</option>
+
+    @for (c of courses; track c.id) {
+      <option [value]="c.id">
+        {{ c.courseName }} — {{ c.term }}
+      </option>
+    }
+  </select>
+
+  <button (click)="addAssessment()">Add Assessment</button>
+</div>
+
+<hr />
+
+<!-- List of Assessments -->
+@for (a of assessments; track a.id) {
+  <div class="assessment-item">
+    <strong>{{ a.title }}</strong>
+
+    <div class="details">
+      <span>📅 Due: {{ a.dueDate }}</span>
+      <span>📘 Course: {{ a.course.courseName }}</span>
+    </div>
+
+    <button (click)="deleteAssessment(a.id)">Delete</button>
+  </div>
+}

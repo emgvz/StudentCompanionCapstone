@@ -1,0 +1,31 @@
+<div class="header-row">
+  <h2>My Courses</h2>
+  <a routerLink="/dashboard" class="back-link">← Back</a>
+</div>
+
+
+<!-- Add Course Form -->
+<div class="course-form">
+  <input
+    type="text"
+    placeholder="Course Name"
+    [(ngModel)]="newCourse.courseName"
+  />
+
+  <input
+    type="text"
+    placeholder="Term (e.g. Fall 2024)"
+    [(ngModel)]="newCourse.term"
+  />
+
+  <button (click)="addCourse()">Add Course</button>
+</div>
+
+<hr />
+
+@for (c of courses; track c.id) {
+  <div class="course-item">
+    <strong>{{ c.courseName }}</strong> — {{ c.term }}
+    <button (click)="deleteCourse(c.id)">Delete</button>
+  </div>
+}

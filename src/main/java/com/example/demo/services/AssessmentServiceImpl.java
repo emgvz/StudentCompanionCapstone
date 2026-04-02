@@ -30,4 +30,10 @@ public class AssessmentServiceImpl implements AssessmentService {
     public Assessment save(Assessment assessment) {
         return repo.save(assessment);
     }
+
+	
+	public void delete(Long id) {
+		repo.deleteById(id);
+		
+	}
 }

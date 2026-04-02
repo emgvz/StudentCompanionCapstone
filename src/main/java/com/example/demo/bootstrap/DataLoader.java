@@ -22,11 +22,12 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (courseService.findAll().isEmpty()) {
+            Course c1 = courseService.save(new Course("Java", "Winter"));
+            Course c2 = courseService.save(new Course("Angular", "Winter"));
 
-        Course c1 = courseService.save(new Course("Java", "Winter"));
-        Course c2 = courseService.save(new Course("Angular", "Winter"));
-
-        assessmentService.save(new Assessment("Midterm", LocalDate.now().plusDays(5), c1));
-        assessmentService.save(new Assessment("Assignment", LocalDate.now().plusDays(2), c2));
+            assessmentService.save(new Assessment("Midterm", LocalDate.now().plusDays(5), c1));
+            assessmentService.save(new Assessment("Assignment", LocalDate.now().plusDays(2), c2));
+        }
     }
 }

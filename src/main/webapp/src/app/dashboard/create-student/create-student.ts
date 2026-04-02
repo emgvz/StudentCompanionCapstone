@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Student } from '../../student';
 import { StudentService } from '../../student-service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth-service';
 
 @Component({
   selector: 'app-create-student',
@@ -14,8 +15,9 @@ export class CreateStudent {
 
   constructor(
     private studentService: StudentService,
+    private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   student: Student = {
     name: '',
@@ -27,8 +29,11 @@ export class CreateStudent {
       next: (res) => {
         console.log('Student created:', res);
 
-                this.studentService.onStudentAdded.emit(res);
-                
+        // Save studentId for later use
+        this.authService.saveStudentId(res.id);
+        this.authService.saveStudent(res); // saves the full student as well so dashboard can show the name
+
+        this.studentService.onStudentAdded.emit(res);
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
