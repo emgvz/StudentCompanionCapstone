@@ -60,21 +60,24 @@ label {
 }
 
 /* INPUTS */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-}
-
-/* BUTTON */
+input,
 .btn-primary {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
   border: none;
+  box-sizing: border-box; /* 🔥 ensures exact same width */
+  display: block;
+}
+
+/* INPUT spacing */
+input {
+  margin-bottom: 15px;
+}
+
+/* BUTTON */
+.btn-primary {
+  margin-top: 5px; /* spacing from last input */
   background: linear-gradient(90deg, #4a90e2, #6c63ff);
   color: white;
   font-weight: bold;

@@ -14,7 +14,9 @@
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
 }
-
+form {
+  width: 100%;
+}
 .left {
   width: 40%;
   padding: 40px;
@@ -34,21 +36,22 @@
   margin-bottom: 20px;
 }
 
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: none;
-}
-
+input,
 .btn-primary {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
+  margin-bottom: 18px;
+  border: none;
+  box-sizing: border-box; /* 🔥 IMPORTANT */
+  display: block; /* ensures full width */
+}
+
+.btn-primary {
   background: #4a90e2;
   color: white;
-  border: none;
+  cursor: pointer;
+  margin-top: 5px; /* spacing from input */
 }
 
 .login-link {
