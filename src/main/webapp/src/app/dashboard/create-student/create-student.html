@@ -1,13 +1,47 @@
-<h2>Create Student</h2>
+<div class="container-center">
 
-<form (ngSubmit)="submit()">
+  <div class="student-card">
 
-  <label>Name</label>
-  <input type="text" [(ngModel)]="student.name" name="name" required><br>
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <img src="SCLogo.png" class="logo" />
+      <h2>Create Student</h2>
+      <p>Add and manage student details easily</p>
+    </div>
 
-  <label>Age</label>
-  <input type="number" [(ngModel)]="student.age" name="age" required><br>
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <h2>Student Details</h2>
 
-  <button type="submit">Save</button>
+      <!-- SAME LOGIC -->
+      <form (ngSubmit)="submit()">
 
-</form>
+        <label>Name</label>
+        <input 
+          type="text" 
+          [(ngModel)]="student.name" 
+          name="name" 
+          placeholder="Enter student name"
+          required
+        >
+
+        <label>Age</label>
+        <input 
+          type="number" 
+          [(ngModel)]="student.age" 
+          name="age" 
+          placeholder="Enter age"
+          required
+        >
+
+        <button type="submit" class="btn-primary">
+          Save
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

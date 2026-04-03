@@ -1,26 +1,67 @@
-@if (studentName) {
-  <h1>Welcome, {{ studentName }}!</h1>
-} @else {
-  <h1>Welcome, {{ email }}!</h1>
+<div class="dashboard-container">
 
-}
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo-section">
+      <img src="SCLogo.png" />
+      <h3>Student Companion</h3>
+    </div>
 
-<br>
+    <nav>
+      <a routerLink="/dashboard" class="active">Dashboard</a>
+      <a routerLink="/dashboard/courses">Courses</a>
+      <a routerLink="/dashboard/assessments">Assessments</a>
+      <a routerLink="/dashboard/create-student">Create Student</a>
+    </nav>
 
-<a routerLink="/dashboard/create-student" class="create-link">
-  Create a Student
-</a>
+    <div class="logout-section">
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
 
-<br>
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
 
-<a routerLink="/dashboard/courses">Courses</a>
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <h2>
+        @if (studentName) {
+          Welcome, {{ studentName }}!
+        } @else {
+          Welcome, {{ email }}!
+        }
+      </h2>
+    </div>
 
-<br>
+    <!-- CARDS -->
+    <div class="cards">
 
+      <div class="card">
+        <h3>Students</h3>
+        <p>Create and manage students</p>
+        <a routerLink="/dashboard/create-student" class="card-btn">
+          Create Student
+        </a>
+      </div>
 
-<a routerLink="/dashboard/assessments">Assessments</a>
+      <div class="card">
+        <h3>Courses</h3>
+        <p>Manage your courses</p>
+        <a routerLink="/dashboard/courses" class="card-btn">
+          View Courses
+        </a>
+      </div>
 
-<br>
+      <div class="card">
+        <h3>Assessments</h3>
+        <p>Track your assessments</p>
+        <a routerLink="/dashboard/assessments" class="card-btn">
+          View Assessments
+        </a>
+      </div>
 
+    </div>
 
-<button (click)="logout()">Logout</button>
+  </div>
+
+</div>

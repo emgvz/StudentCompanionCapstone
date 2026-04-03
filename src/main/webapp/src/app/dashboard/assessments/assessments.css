@@ -1,0 +1,105 @@
+.assessment-container {
+  padding: 30px;
+  color: white;
+  background: linear-gradient(135deg, #6a11cb, #8e44ad);
+  min-height: 100vh;
+}
+
+/* HEADER */
+.assessment-header h2 {
+  margin: 0;
+}
+
+.assessment-header p {
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.back-link {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* MAIN CARD */
+.assessment-card {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* FORM */
+.assessment-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.assessment-form input,
+.assessment-form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.assessment-form button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #4a90e2;
+  color: white;
+  cursor: pointer;
+}
+
+/* CONTENT LAYOUT */
+.assessment-content {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+}
+
+/* LIST */
+.assessment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.assessment-item {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assessment-info h3 {
+  margin: 0;
+}
+
+.details {
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  background: #ff4d4d;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: white;
+}
+
+/* SUMMARY BOX */
+.summary-box {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 12px;
+  height: fit-content;
+}

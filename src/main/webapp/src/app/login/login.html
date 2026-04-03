@@ -1,32 +1,47 @@
-<h2>Login</h2>
+<div class="container-center">
 
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="login-card">
 
-  <div>
-    <label>Email:</label>
-    <input type="email" formControlName="email" placeholder="Enter your email">
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <img src="SCLogo.png" class="logo" />
+      <h2>Welcome to Student Companion</h2>
+      <p>Stay organized. Stay ahead.</p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <h2>Login</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <input type="email"
+               formControlName="email"
+               placeholder="Enter your email" /><br><br>
+
+        <input type="password"
+               formControlName="password"
+               placeholder="Enter your password" />
+
+        <!-- ERROR -->
+        @if (errorMessage) {
+          <div class="error-message">
+            {{ errorMessage }}
+          </div>
+        }
+
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Logging in...' : 'Login' }}
+        </button>
+
+      </form>
+
+      <p>
+        Don't have an account?
+        <a routerLink="/register">Create one</a>
+      </p>
+    </div>
+
   </div>
 
-  <div>
-    <label>Password:</label>
-    <input type="password" formControlName="password" placeholder="Enter your password">
-  </div>
-
-  <div>
-    @if (errorMessage) {
-      <div class="error-message">
-        {{ errorMessage }}
-      </div>
-    }
-  </div>
-
-  <button type="submit" [disabled]="loading">
-  {{ loading ? 'Logging in...' : 'Login' }}
-</button>
-
-</form>
-
-<p>
-  Don't have an account?
-  <a routerLink="/register">Create one</a>
-</p>
+</div>

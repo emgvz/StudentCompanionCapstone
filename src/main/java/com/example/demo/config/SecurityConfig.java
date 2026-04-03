@@ -33,32 +33,6 @@ public class SecurityConfig {
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	private AuthenticationProvider authenticationProvider;
 	
-//	@Bean
-//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//		
-//		
-//	    return http
-//	    		
-//	    		
-//	            .csrf(csrf -> csrf.disable())
-//	            .authorizeHttpRequests(auth -> auth
-//
-//	                    // public
-//	                    .requestMatchers("/api/v1/auth/**").permitAll()
-//	                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-//
-//	                    // 🔒 ONLY students secured
-//	                    .requestMatchers("/api/v1/students/**").authenticated()
-//
-//	                    // ✅ everything else public
-//	                    .anyRequest().permitAll()
-//	            )
-//	            .sessionManagement(session ->
-//	                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//	            .authenticationProvider(authenticationProvider)
-//	            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//	            .build();
-//	}
 	
 	// remove this 2 to let error be 403 instead of 401
 	
@@ -93,20 +67,5 @@ public class SecurityConfig {
 
 
 	
-//	@Bean
-//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//	    return http.authorizeHttpRequests(authorize -> authorize
-//	                    .requestMatchers("/api/v1/auth/register", "/api/v1/auth/authenticate").permitAll()
-//	                    // TODO comment or remove for production
-//	                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/auth/**").permitAll()
-//	                    .requestMatchers(HttpMethod.DELETE, "/api/v1/students/**").authenticated()
-//	                    .anyRequest().authenticated()
-//	            )
-//	            .csrf(csrf -> csrf.disable())
-//	            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//	            .authenticationProvider(authenticationProvider)
-//	            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//	            .build();
-//	}
-	
+
 }

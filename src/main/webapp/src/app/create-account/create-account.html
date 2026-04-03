@@ -1,46 +1,57 @@
-<div class="submit-form">
+<div class="container-center">
 
-  <h2>Create Your Account</h2>
+  <div class="login-card">
 
-  <div class="form-group">
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <img src="SCLogo.png" class="logo" />
+      <h2>Welcome to Student Companion</h2>
+      <p>Join thousands of students staying organized.</p>
+    </div>
 
-    <label>Email:</label>
-    <input
-      class="form-control"
-      type="email"
-      [(ngModel)]="user.email"
-      name="email"
-      required
-    /><br>
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <h2>Create an Account</h2>
 
-    <label>Password:</label>
-    <input
-      class="form-control"
-      type="password"
-      [(ngModel)]="user.password"
-      name="password"
-      required
-    /><br>
+      <form (ngSubmit)="register()">
 
-    <label>Retype Password:</label>
-    <input
-      class="form-control"
-      type="password"
-      [(ngModel)]="confirmPassword"
-      name="confirmPassword"
-      required
-    /><br>
+        <input
+          type="email"
+          [(ngModel)]="user.email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
 
-    <br />
+        <input
+          type="password"
+          [(ngModel)]="user.password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
 
-    <button class="btn btn-success" (click)="register()">
-      Create Account
-    </button>
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm your password"
+          required
+        />
 
-    <div class="LoginBack">
-      <span>Already have an account? </span>
-      <a routerLink="/login">Login here</a>
+        <button type="submit" class="btn-primary">
+          Create Account
+        </button>
+
+      </form>
+
+      <p class="login-link">
+        Already have an account?
+        <a routerLink="/login">Login here</a>
+      </p>
+
     </div>
 
   </div>
+
 </div>
