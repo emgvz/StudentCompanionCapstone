@@ -90,8 +90,9 @@ export class Assessments implements OnInit{
     this.selectedTopic = topic;
 
     this.helpService.getHelp(topic).subscribe(res => {
-      console.log("HELP RESPONSE:", res);   // ✅ ADD THIS
-      this.selectedHelp = res;              // ✅ IMPORTANT FIX
+      console.log("HELP RESPONSE:", res);   
+      this.selectedHelp = res;
+	  this.cdr.detectChanges();               
     });
   }
   getIcon(title: string): string {

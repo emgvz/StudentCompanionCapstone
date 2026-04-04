@@ -70,28 +70,35 @@
 	  <h3>📅 Calendar</h3>
 	
 	  <div *ngFor="let a of assessments" class="calendar-row">
-	
-	    <span class="title">{{ a.title }}</span>
-	
-	    <span class="date">
-	      {{ a.dueDate | date:'mediumDate' }}
-	    </span>
-	
-	    <span 
-	      class="status"
-	      [ngClass]="{
-	        'overdue': isOverdue(a.dueDate),
-	        'upcoming': isUpcoming(a.dueDate)
-	      }">
-	
-	      {{ isOverdue(a.dueDate) ? 'Overdue' : 'Upcoming' }}
-	
-	    </span>
-	
-	  </div>
+
+		  <div>
+		    <div class="title">
+		      {{ a.title || a.course?.courseName }}
+		    </div>
+		    <div class="course">
+		      📘 {{ a.course?.courseName }}
+		    </div>
+		  </div>
+		
+		  <span class="date">
+		    {{ a.dueDate | date:'mediumDate' }}
+		  </span>
+		
+		  <span 
+		    class="status"
+		    [ngClass]="{
+		      'overdue': isOverdue(a.dueDate),
+		      'upcoming': isUpcoming(a.dueDate)
+		    }">
+		
+		    {{ isOverdue(a.dueDate) ? 'Overdue' : 'Upcoming' }}
+		
+		  </span>
+		
+		</div>
 	
 	</div>
 
   </div>
-
+ 
 </div>
