@@ -92,6 +92,7 @@ export class Assessments implements OnInit{
     this.helpService.getHelp(topic).subscribe(res => {
       console.log("HELP RESPONSE:", res);   // ✅ ADD THIS
       this.selectedHelp = res;              // ✅ IMPORTANT FIX
+      this.cdr.detectChanges();
     });
   }
   getIcon(title: string): string {
