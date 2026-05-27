@@ -1,14 +1,19 @@
 <div class="create-wellness-container">
 
+    <!-- changes the main text and the sub text if user clicks the edit button-->
     <div class="header">
-        <h2>Create Wellness Entry</h2>
-        <a routerLink="/dashboard/health-wellness" class="back-link">← Back</a>
+        <h2>{{ isEditing ? 'Edit Wellness Entry' : 'Create Wellness Entry' }}</h2>
+        <p>
+            {{ isEditing
+            ? 'Update your previous wellness entry'
+            : 'Tell us how you’re feeling today'
+            }}
+        </p> <a routerLink="/dashboard/health-wellness" class="back-link">← Back</a>
     </div>
 
     <div class="wellness-box create">
 
         <div class="mood-section">
-
             <h3>How are you feeling today?</h3>
 
             <div class="mood-display">
@@ -38,21 +43,25 @@
                     (click)="selectMood('Tired')">😴 Tired</button>
             </div>
 
-            <!-- slider for stress-->
         </div>
 
+
+        <div class="divider"></div>
+
+        <!-- slider for stress-->
         <h3 class="section-title">How stressed are you feeling?</h3>
+        <p class="section-hint">Slide to choose your stress level.</p>
 
         <div class="stress-label-container">
-
             <label class="stress-title">Stress Level</label>
             <label class="stress-value">{{ slider.value }}</label>
         </div>
 
         <mat-slider class="stress-slider" [min]="0" [max]="10" [step]="1" [showTickMarks]="false" [discrete]="false">
-
             <input matSliderThumb [(ngModel)]="form.stressLevel" name="stressLevel" #slider>
         </mat-slider>
+
+        <div class="divider"></div>
 
         <!-- slider for sleep hours -->
         <h3 class="section-title">How many hours did you sleep?</h3>
@@ -63,8 +72,11 @@
             <input matSliderThumb [(ngModel)]="form.sleepHours" #sleepSlider>
         </mat-slider>
 
+        <div class="divider"></div>
+
         <!-- slider for energy -->
         <h3 class="section-title">How much energy do you have today?</h3>
+        <p class="section-hint">Choose the level that best matches your day.</p>
 
         <div class="energy-value">
             {{ +energySlider.value === 0 ? 'Low' : +energySlider.value === 1 ? 'Medium' : 'High' }} </div>
@@ -74,8 +86,11 @@
             <input matSliderThumb [(ngModel)]="form.energyLevel" name="energyLevel" #energySlider>
         </mat-slider>
 
+        <div class="divider"></div>
+
         <!-- slider for productivity -->
         <h3 class="section-title">How productive were you today?</h3>
+        <p class="section-hint">Rate your productivity from 0 to 10.</p>
 
         <div class="productivity-value">
             {{ productivitySlider.value }}
@@ -87,6 +102,8 @@
             <input matSliderThumb [(ngModel)]="form.productivity" name="productivity" #productivitySlider>
         </mat-slider>
 
+        <div class="divider"></div>
+
         <!-- text area for notes -->
         <h3 class="section-title">Any notes about your day?</h3>
 
@@ -94,14 +111,12 @@
             placeholder="Write anything you want to remember…">
 </textarea>
 
+        <div class="divider"></div>
 
         <!-- Date picker for date logged -->
 
         <h3 class="section-title">Date Logged</h3>
-
         <input type="date" class="date-input" [(ngModel)]="form.dateLogged" name="dateLogged">
-
-
 
         <button class="save-btn" (click)="createEntry()">Create Entry</button>
 

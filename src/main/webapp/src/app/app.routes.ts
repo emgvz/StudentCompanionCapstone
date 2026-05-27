@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'dashboard/create-student', component: CreateStudent},
     { path: 'dashboard/courses', component: Courses},
     { path: 'dashboard/assessments', component: Assessments},
-    { path: 'dashboard/health-wellness', component: HealthWellness},
-    { path: 'dashboard/health-wellness/create-health-wellness', component: CreateHealthWellness},
+    { path: 'dashboard/health-wellness', component: HealthWellness, runGuardsAndResolvers: 'always'},
+    { path: 'dashboard/health-wellness/create-health-wellness', component: CreateHealthWellness, runGuardsAndResolvers: 'always'},
     { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];

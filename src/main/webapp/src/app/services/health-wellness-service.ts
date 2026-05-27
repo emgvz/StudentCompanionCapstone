@@ -23,6 +23,17 @@ export class HealthWellnessService {
     );
   }
 
+  getById(id: number) {
+    const token = localStorage.getItem('token');
+
+    return this.http.get<any>(
+      `${healthWellnessUrl}/${id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
+
   create(wellness: any) {
     const token = localStorage.getItem('token');
 

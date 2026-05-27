@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { HealthWellnessService } from '../../services/health-wellness-service';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+
 
 @Component({
   selector: 'app-health-wellness',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, MatButtonModule, MatCardModule],
   templateUrl: './health-wellness.html',
   styleUrl: './health-wellness.css',
 })
@@ -33,10 +36,33 @@ export class HealthWellness implements OnInit {
     student: { id: 0 }
   };
 
+  // alert box (cancel and delete button)
+
+  confirmDeleteId: number | null = null;
+  
+
+openDeleteConfirm(id: number) {
+  this.confirmDeleteId = id;
+}
+
+closeDeleteConfirm() {
+  this.confirmDeleteId = null;
+}
+
+confirmDelete() {
+  if (!this.confirmDeleteId) return;
+
+  this.wellnessService.delete(this.confirmDeleteId).subscribe(() => {
+    this.confirmDeleteId = null;
+    this.loadWellnessList();
+  });
+}
+
   constructor(
     private wellnessService: HealthWellnessService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,41 +84,15 @@ export class HealthWellness implements OnInit {
     });
   }
 
-  // START CREATE MODE
-  startCreate() {
-    this.isCreating = true;
-    this.isEditing = false;
-    this.editingId = null;
+  // no create function since we're not creating in the same component
 
-    this.form = {
-      mood: '',
-      stressLevel: 5,
-      sleepHours: 0,
-      energyLevel: '',
-      productivity: 5,
-      notes: '',
-      dateLogged: new Date().toISOString().substring(0, 10),
-      student: { id: this.studentId }
-    };
-  }
+  editEntry(id: number) {
+  this.router.navigate(
+    ['dashboard/health-wellness/create-health-wellness'],
+    { queryParams: { id } }
+  );
+}
 
-  // CREATE ENTRY
-  createEntry() {
-    this.wellnessService.create(this.form).subscribe(() => {
-      this.isCreating = false;
-      this.loadWellnessList();
-      this.cdr.detectChanges();
-    });
-  }
-
-  // START EDIT MODE
-  editEntry(entry: any) {
-    this.isEditing = true;
-    this.isCreating = false;
-    this.editingId = entry.id;
-
-    this.form = { ...entry };
-  }
 
   // UPDATE ENTRY
   updateEntry() {
@@ -125,15 +125,30 @@ export class HealthWellness implements OnInit {
     this.editingId = null;
   }
 
-  // EMOJI HELPER
+//   getMoodEmojiStatic(mood: string): string {
+//   const emojiMap: any = {
+//     Happy: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f604/512.webp",
+//     Okay: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f642/512.webp",
+//     Neutral: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f610/512.webp",
+//     Sad: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f61e/512.webp",
+//     Stressed: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f620/512.webp",
+//     Tired: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f62a/512.webp"
+//   };
+
+//   return emojiMap[mood] || emojiMap["Okay"];
+// }
+
   getMoodEmoji(mood: string): string {
-    switch (mood) {
-      case 'Happy': return '😄';
-      case 'Okay': return '🙂';
-      case 'Neutral': return '😐';
-      case 'Sad': return '😞';
-      case 'Stressed': return '😡';
-      default: return '🙂';
-    }
-  }
+  const emojiMap: any = {
+    Happy: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f604/512.gif",
+    Okay: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f642/512.gif",
+    Neutral: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f610/512.gif",
+    Sad: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f61e/512.gif",
+    Stressed: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f620/512.gif",
+    Tired: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f62a/512.gif"
+  };
+
+  return emojiMap[mood] || emojiMap["Okay"];
+}
+
 }
