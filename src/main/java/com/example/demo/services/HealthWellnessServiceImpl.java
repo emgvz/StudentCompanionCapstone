@@ -17,6 +17,12 @@ public class HealthWellnessServiceImpl implements HealthWellnessService {
     public List<HealthWellness>getByStudentId(Long studentId) {
         return repo.findByStudentId(studentId);
     }
+    
+    @Override
+    public HealthWellness getById(Long id) {
+        return repo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Entry not found"));
+    }
 
     @Override
     public HealthWellness save(HealthWellness wellness) {

@@ -15,10 +15,15 @@ public class HealthWellnessController {
     private final HealthWellnessService wellnessService;
 
     @GetMapping("/student/{studentId}")
-    public List<HealthWellness> getByStudent(@PathVariable Long studentId) {
+    public List<HealthWellness> getByStudentId(@PathVariable Long studentId) {
         return wellnessService.getByStudentId(studentId);
     }
-
+    
+    @GetMapping("/{id}") // edit
+    public HealthWellness getById(@PathVariable Long id) {
+        return wellnessService.getById(id);
+    }
+    
     @PostMapping
     public HealthWellness create(@RequestBody HealthWellness wellness) {
         return wellnessService.save(wellness);
@@ -27,5 +32,10 @@ public class HealthWellnessController {
     @PutMapping("/{id}")
     public HealthWellness update(@PathVariable Long id, @RequestBody HealthWellness wellness) {
         return wellnessService.update(id, wellness);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        wellnessService.delete(id);
     }
 }
