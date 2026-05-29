@@ -1,0 +1,136 @@
+
+CARD
+.student-card {
+  display: flex;
+  width: 750px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+LEFT
+.left {
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+  color: white;
+  background: rgba(255,255,255,0.08);
+}
+
+.logo {
+  width: 110px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.left h2 {
+  margin-bottom: 10px;
+}
+
+.left p {
+  opacity: 0.8;
+}
+
+RIGHT
+.right {
+  flex: 1;
+  padding: 40px;
+  color: white;
+}
+
+.right h2 {
+  margin-bottom: 20px;
+}
+
+LABELS
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+INPUTS
+input,
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  box-sizing: border-box; 
+  display: block;
+}
+
+INPUT spacing
+input {
+  margin-bottom: 15px;
+}
+
+BUTTON
+.btn-primary {
+  margin-top: 5px; 
+  background: linear-gradient(90deg, #4a90e2, #6c63ff);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+} */
+
+/* FORM */
+form {
+  width: 100%;
+}
+
+/* RIGHT PANEL */
+.right h2 {
+  margin-bottom: 28px;
+
+  color: #17352B;
+
+  font-size: 32px;
+}
+
+/* LABELS */
+label {
+  display: block;
+
+  margin-top: 18px;
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #2C3E36;
+}
+
+/* INPUT SPACING */
+input {
+  margin-bottom: 10px;
+}
+
+/* BUTTON */
+button {
+  margin-top: 25px;
+}
+
+/* LEFT TITLE */
+.left h1 {
+  margin-bottom: 18px;
+
+  font-size: 34px;
+
+  line-height: 1.3;
+}
+
+/* LEFT TEXT */
+.left p {
+  opacity: 0.85;
+
+  font-size: 16px;
+}
