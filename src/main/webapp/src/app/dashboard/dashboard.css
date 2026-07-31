@@ -843,3 +843,37 @@ hr {
     text-align:center;
     font-size:14px;
 }
+
+
+/* HEALTH AND WELLNESS */
+
+.health-card {
+    min-height: 430px !important;
+}
+
+.health-card canvas {
+    max-height: none !important;
+    height: 280px !important;   
+    width: 100% !important;
+}
+
+.mood-emoji {
+    margin-top: 50px;
+}
+
+
+.stability-emoji{
+  margin-top: 50px;
+}
+				
+.stability-score{
+
+}			
+
+.stability-summary{
+
+}
+
+.stability-breakdown{
+
+}

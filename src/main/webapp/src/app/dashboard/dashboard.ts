@@ -220,7 +220,7 @@ energyOptions = {
     legend: {
       display: true,
       labels: {
-		color: '#9ca3af',
+        color: '#FFFFFF',
         boxWidth: 40,
         boxHeight: 12,
         borderWidth: 0,
@@ -235,30 +235,70 @@ energyOptions = {
   scales: {
     x: {
       grid: { color: 'rgba(255,255,255,0.1)' },
-      ticks: { color: '#9ca3af' }
+      ticks: { color: '#FFFFFF' },
+	  border: {
+    display: true,
+    color: 'rgba(255,255,255,0.1)',
+    width: 1
+  }
     },
     y: {
       min: 0,
       max: 3,
       ticks: {
         stepSize: 1,
-        color: '#9ca3af'
+        color: '#FFFFFF'
       },
-      grid: { color: 'rgba(255,255,255,0.1)' }
+      grid: { color: 'rgba(255,255,255,0.1)' },
+	  border: {
+    display: true,
+    color: 'rgba(255,255,255,0.1)',
+    width: 1
+  }
     }
   }
 };
+
 	// Productivity Flow options
 
 	productivityOptions = {
+		plugins: {
+			legend: {
+				labels: {
+					color : '#FFFFFF'
+				}
+			}
+		},
 		scales: {
 			y: {
 				min: 0,
 				max: 10,
 				ticks: {
-					stepSize: 1
-				}
+					stepSize: 2,
+					color: "#FFFFFF"
+				},
+				grid: { color: 'rgba(255,255,255,0.1)',
+				 },
+				 border: {
+    display: true,
+    color: 'rgba(255,255,255,0.1)',
+    width: 1
+  }
+				
+			},
+			x: {
+				ticks: {
+					color: "#FFFFFF"
+				},
+				grid: { color: 'rgba(255,255,255,0.1)',
+				 },
+				 border: {
+    display: true,
+    color: 'rgba(255,255,255,0.1)',
+    width: 1
+  }
 			}
+			
 		}
 	};
 	stabilitySummary: string = '';
@@ -726,21 +766,28 @@ if (this.energyData.length === 0) {
 } else {
   // ⭐ Normal wave chart
   this.energyChartData = {
-    labels: this.energyLabels,
-    datasets: [
-      {
-        label: 'Energy',
-        data: this.energyData,
-        fill: true,
-        tension: 0.5,
-        borderColor: 'rgba(54,162,235,0.8)',
-        backgroundColor: 'rgba(54,162,235,0.25)',
-        pointRadius: 0,
-        pointHoverRadius: 6
-      }
-    ]
-  };
+  labels: this.energyLabels,
+  datasets: [
+    {
+      label: "Energy",
+      data: this.energyData,
+      fill: true,
+      tension: 0.45,
+      borderColor: "rgba(79, 209, 197, 0.9)",
+      backgroundColor: "rgba(79, 209, 197, 0.25)",
+      borderWidth: 3,
+      pointRadius: 4,
+      pointBackgroundColor: "#4fd1c5",
+      pointHoverRadius: 7
+    }
+  ]
+};
 }
+
+
+
+
+
       const productivity = this.getProductivityFlow(this.wellnessEntries);
       this.productivityLabels = productivity.labels;
       this.productivityData = productivity.data;
