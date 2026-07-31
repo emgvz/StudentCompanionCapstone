@@ -18,6 +18,9 @@ import { HealthWellnessService } from '../../services/health-wellness-service';
 })
 export class Calendar implements OnInit {
 
+  studentId!: number;
+
+
   // WEEKDAY HEADERS
   weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -51,12 +54,12 @@ export class Calendar implements OnInit {
 
   monthViewYear = this.selectedDate.getFullYear();
 
-  userHasSelected = false;
-
   yearGridStart = 0;
 
   todayLabel = '';
   selectedLabel = '';
+
+  activePanel: 'assessments' | 'wellness' = 'assessments';
 
 
   // DAYS IN MONTH (for the grid)
@@ -86,10 +89,14 @@ export class Calendar implements OnInit {
   mood: string;
   stressLevel: number;
   sleepHours: number;
-  energyLevel: string;
+  energyLevel: number;
   productivity: number;
   notes: string;
 }[] = [];
+
+showAllWellness = false;
+allWellnessEntries: any[] = [];
+
 
 getMoodEmoji(mood: string): string {
   const emojiMap: any = {
@@ -113,14 +120,19 @@ getMoodEmoji(mood: string): string {
 
 
   ngOnInit() {
-    this.generateCalendar(this.selectedDate);
+  this.studentId = Number(localStorage.getItem('studentId'));
 
-    // Mark today's month
-    const currentMonth = new Date().getMonth();
-    this.months[currentMonth].isToday = true;
+  this.generateCalendar(this.selectedDate);
 
-    this.updateLabels();
-  }
+  const currentMonth = new Date().getMonth();
+  this.months[currentMonth].isToday = true;
+
+  this.updateLabels();
+
+  this.loadAssessmentsFor(this.selectedDate);
+  this.loadWellnessFor(this.selectedDate);
+}
+
 
   // GENERATE CALENDAR GRID
   generateCalendar(date: Date) {
@@ -159,7 +171,7 @@ getMoodEmoji(mood: string): string {
         day: i,
         date: current,
         isToday: this.isSameDate(current, new Date()),
-        isSelected: this.userHasSelected && this.isSameDate(current, this.selectedDate),
+        isSelected: this.isSameDate(current, this.selectedDate),
         isOverflow: false
       });
     }
@@ -201,7 +213,6 @@ getMoodEmoji(mood: string): string {
     }
 
     setTimeout(() => {
-      this.userHasSelected = true;
       this.selectedDate = d.date;
       this.selectedDayNumber = d.date.getDate();
       console.log('AFTER OVERFLOW SELECT:', this.selectedDate);
@@ -215,7 +226,6 @@ getMoodEmoji(mood: string): string {
     return;
   }
 
-  this.userHasSelected = true;
   console.log('NORMAL CLICK, BEFORE selectDate, selectedDate =', this.selectedDate);
   this.selectDate(d.date);
 }
@@ -437,11 +447,9 @@ getMoodEmoji(mood: string): string {
  selectDate(date: Date) {
   console.log('selectDate CALLED with:', date);
 
-  this.userHasSelected = true;
   this.selectedDate = date;
   this.selectedDayNumber = date.getDate();
 
-  this.generateCalendar(this.selectedDate);
 
   this.loadAssessmentsFor(date);
   this.loadWellnessFor(date);
@@ -491,6 +499,71 @@ getMoodEmoji(mood: string): string {
     }
   });
 }
+
+loadWellnessList() {
+  this.wellnessService.getByStudent(this.studentId).subscribe({
+    next: (entries) => {
+      
+      this.allWellnessEntries = this.sortWellness(entries);
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.allWellnessEntries = [];
+      this.cdr.detectChanges();
+    }
+  });
+}
+
+
+
+jumpToToday() {
+  const today = new Date();
+
+  // Update selected date
+  this.selectedDate = today;
+
+  // Regenerate calendar
+  this.generateCalendar(today);
+
+  // Find today's day object in daysInMonth
+  const todayObj = this.daysInMonth.find(d => d.isToday);
+
+  if (todayObj) {
+    this.handleDayClick(todayObj);
+  }
+
+  this.updateLabels();
+}
+
+getStressLabel(value: number): string {
+  if (value <= 2) return 'Low';
+  if (value <= 5) return 'Moderate';
+  if (value <= 7) return 'High';
+  return 'Overwhelmed';
+}
+
+getEnergyLabel(value: number): string {
+  return value === 0 ? 'Low' : value === 1 ? 'Medium' : 'High';
+}
+
+getProductivityLabel(value: number): string {
+  if (value <= 2) return 'Low';
+  if (value <= 4) return 'Some progress';
+  if (value <= 6) return 'Decent';
+  if (value <= 8) return 'Productive';
+  return 'Very productive';
+}
+
+sortWellness(entries: any[]) {
+  return entries.sort((a, b) => {
+    const da = new Date(a.dateLogged || a.date);
+    const db = new Date(b.dateLogged || b.date);
+    return db.getTime() - da.getTime(); // newest first
+  });
+}
+
+
+
 
 
 
