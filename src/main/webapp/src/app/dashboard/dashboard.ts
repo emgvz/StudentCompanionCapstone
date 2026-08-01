@@ -586,6 +586,7 @@ energyOptions = {
 		this.loadAssessmentCompletion();
 		this.cdr.detectChanges();
 	}
+	// Add study hours to pending assessments
 	logStudyHours() {
 	    if (!this.selectedAssessmentId) {
 	        return;
@@ -608,7 +609,7 @@ energyOptions = {
 				    this.todayHours = 0;
 				    this.loadCourseProgress();
 					this.cdr.detectChanges();
-				    // Optional: Hide the message after 4 seconds
+				    // Hide the message after 4 seconds
 				    setTimeout(() => {
 				        this.studyMessage = "";
 				    }, 4000);
