@@ -4,6 +4,7 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withFetch} from '@angular/common/http';
+import { withInMemoryScrolling } from '@angular/router';
 
 
 export const appConfig: ApplicationConfig = {
@@ -11,7 +12,10 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(
       routes,
-      withRouterConfig({ onSameUrlNavigation: 'reload' })
+      withRouterConfig({ onSameUrlNavigation: 'reload'}),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled' })
     ),
     provideClientHydration(withEventReplay()),
     provideHttpClient(

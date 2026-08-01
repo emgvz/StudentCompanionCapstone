@@ -48,6 +48,7 @@ export class CreateHealthWellness implements OnInit {
 
   selectedEmojiWebp: string = "";
   selectedEmojiGif: string = "";
+  
 
   // ⭐ SINGLE emojiMap used everywhere
   emojiMap: any = {
@@ -76,6 +77,9 @@ export class CreateHealthWellness implements OnInit {
       gif: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f62a/512.gif"
     }
   };
+
+  currentStep = 1
+  steps = [1,2,3,4,5,6,7,8];
 
   constructor(
     private wellnessService: HealthWellnessService,
@@ -199,6 +203,22 @@ export class CreateHealthWellness implements OnInit {
       });
     }, 120);
   });
+}
+
+nextStep() {
+  if (this.currentStep < 8) this.currentStep++;
+}
+
+prevStep() {
+  if (this.currentStep > 1) this.currentStep--;
+}
+
+submitForm() {
+  if (this.isEditing) {
+    this.updateEntry();
+  } else {
+    this.createEntry();
+  }
 }
 
 }
